@@ -40,3 +40,10 @@ func (rw *contentTypeSniffer) writeHeader(b []byte) {
 
 	rw.WriteHeader(http.StatusOK)
 }
+
+// Flush implements the http.Flusher interface
+func (rw *contentTypeSniffer) Flush() {
+	if f, ok := rw.rw.(http.Flusher); ok {
+		f.Flush()
+	}
+}
